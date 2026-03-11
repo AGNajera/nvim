@@ -31,20 +31,13 @@ return {
         end
     },
 
-
     {
-        "catppuccin/nvim",
-        name = "catppuccin",
+        "folke/tokyonight.nvim",
+        lazy = false,
         priority = 1000,
-        config = function()
-            require("catppuccin").setup({
-                flavour = "frappe", -- latte, frappe, macchiato, mocha
-                transparent_background = true,
-                term_colors = true,
-            })
-            vim.cmd.colorscheme("catppuccin")
-            enable_transparency()
-        end
+        opts = {
+            vim.cmd [[colorscheme tokyonight-moon]]
+        },
     },
 
     {
