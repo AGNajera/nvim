@@ -1,4 +1,6 @@
 # Mi configuración de neovim
-Actualizada 19-03-2026.
-Ya no uso packer, uso lazy.
-Transferí todo a la carpeta angel/lazy. Ahí es en donde están los plugins
+## Actualizada 6-04-2026 con neovim 0.12.
+
+Actualicé todo para que se ocupara lo menos posible y ahora con neovim 0.12 esto es más facil.
+
+-- Ahora se ocupa un solo archivo y menos de 100 lineas de codigo :D
