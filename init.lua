@@ -18,9 +18,11 @@ vim.o.relativenumber = true
 vim.o.scrolloff = 8
 vim.o.smartcase = true
 vim.o.ignorecase = true
+vim.o.cursorline = true
 vim.g.netrw_banner = 0
 vim.g.netrw_browse_split = 0
 vim.g.netrw_winsize = 25
+vim.diagnostic.config({ virtual_text = true })
 
 -- Plugins
 vim.pack.add {
@@ -29,7 +31,16 @@ vim.pack.add {
     'https://github.com/brenoprata10/nvim-highlight-colors',
     'https://github.com/nvim-lua/plenary.nvim',
     'https://github.com/nvim-telescope/telescope.nvim',
+    'https://github.com/mason-org/mason.nvim',
+    'https://github.com/mason-org/mason-lspconfig.nvim',
 }
+
+-- Mason
+require("mason").setup()
+require("mason-lspconfig").setup({
+    ensure_installed = { "lua_ls", "ts_ls", "basedpyright" }
+})
+
 vim.cmd[[colorscheme tokyonight-moon]]
 require('nvim-highlight-colors').setup({})
 
@@ -47,3 +58,6 @@ vim.keymap.set('n', '<leader>pr', function()
     local word = vim.fn.expand("<cWORD>")
     builtin.grep_string({ search = word })
 end)
+
+-- LSP
+vim.lsp.enable({ "lua_ls", "ts_ls" })
