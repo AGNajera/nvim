@@ -26,13 +26,14 @@ vim.diagnostic.config({ virtual_text = true })
 
 -- Plugins
 vim.pack.add {
-	'https://github.com/folke/tokyonight.nvim',
+    'https://github.com/folke/tokyonight.nvim',
     'https://github.com/neovim/nvim-lspconfig',
     'https://github.com/brenoprata10/nvim-highlight-colors',
     'https://github.com/nvim-lua/plenary.nvim',
     'https://github.com/nvim-telescope/telescope.nvim',
     'https://github.com/mason-org/mason.nvim',
     'https://github.com/mason-org/mason-lspconfig.nvim',
+    'https://github.com/saghen/blink.cmp',
 }
 
 -- Mason
@@ -61,3 +62,37 @@ end)
 
 -- LSP
 vim.lsp.enable({ "lua_ls", "ts_ls" })
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = "Ir a definición" })
+vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = "Mostrar documentación" })
+vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, { desc = "Renombrar variable" })
+vim.keymap.set('n', '<leader>c', vim.lsp.buf.code_action, { desc = "Acciones de código" })
+
+-- Blink
+require('blink.cmp').setup({
+    sources = {
+        default = { 'lsp', 'path', 'snippets', 'buffer' },
+    },
+
+    fuzzy = {
+        implementation = "lua"
+    },
+
+    snippets = {
+        preset = 'default',
+    },
+
+    keymap = {
+        preset = 'none', -- <C-space> para completar, <Tab> para confirmar
+        -- Mapeos para navegar el menú con las flechas o C-n/C-p
+        ['<Up>'] = { 'select_prev', 'fallback' },
+        ['<Down>'] = { 'select_next', 'fallback' },
+        ['<C-p>'] = { 'select_prev', 'fallback' },
+        ['<C-n>'] = { 'select_next', 'fallback' },
+    },
+
+    -- Opcional: Mostrar bordes en la ventana de completado
+    completion = {
+        menu = { border = 'rounded' },
+        documentation = { window = { border = 'rounded' } },
+    },
+})
